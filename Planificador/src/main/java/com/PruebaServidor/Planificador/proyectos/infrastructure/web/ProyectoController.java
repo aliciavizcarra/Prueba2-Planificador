@@ -31,27 +31,30 @@ public class ProyectoController {
 
     @GetMapping("/proyecto/{id}")
     String proyectoconID(@PathVariable Integer id, Model model){
-        if(id==1){
-            model.addAttribute("lista",this.proyectoUseCases.getTareasFromID(id));
-            model.addAttribute("id",id);
-            return "SpringBoot";
 
-        } else if(id==2){
-            model.addAttribute("lista",this.proyectoUseCases.getTareasFromID(id));
-            model.addAttribute("id",id);
-            return "Next";
-        }else if(id==3){
-            model.addAttribute("lista",this.proyectoUseCases.getTareasFromID(id));
-            model.addAttribute("id",id);
-            return "AWS";
-        }else{
-            return "redirect:/proyectos";
-        }
+        Proyecto proyecto = this.proyectoUseCases.getProyectoFromID(id);
+        model.addAttribute("lista",this.proyectoUseCases.getTareasFromID(id));
+        model.addAttribute("id",id);
+        model.addAttribute("proyecto",proyecto);
+
+        return "proyectoBuscado";
     }
 
+    //Falta por probar//
     @PostMapping("/proyecto/borrar")
     String borrar(Integer id){
         this.proyectoUseCases.deleteProyecto(id);
+        return "redirect:/proyectos";
+    }
+
+    @GetMapping("/proyecto/nuevo")
+    String nuevo(){
+        return "nuevo";
+    }
+
+    @PostMapping("/proyecto/save")
+    String addProyect(String nombre){
+        this.proyectoUseCases.saveProyecto(nombre);
         return "redirect:/proyectos";
     }
 

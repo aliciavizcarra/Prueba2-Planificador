@@ -8,8 +8,14 @@ public interface ProyectoRepository {
 
     public List<Proyecto> getAll();
 
+    public List<Proyecto> getProyectoEntero();
+
     public List<Tarea> getTareasFromID(Integer id);
 
     public void deleteProyecto(Integer id);
+
+    public void saveProyecto(String nombre);
+
+    public Proyecto getProyectoFromID(Integer id);
 
 }

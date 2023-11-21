@@ -28,4 +28,18 @@ public class ProyectoUseCases {
     public void deleteProyecto(Integer id){
         this.proyectoRepository.deleteProyecto(id);
     }
+
+    public void saveProyecto(String nombre){
+        this.proyectoRepository.saveProyecto(nombre);
+    }
+
+    public Proyecto getProyectoFromID(Integer id){
+        Proyecto proyecto = this.proyectoRepository.getProyectoFromID(id);
+        return proyecto;
+    }
+
+    public List<Proyecto> getProyectoEntero(){
+        List<Proyecto> list = this.proyectoRepository.getProyectoEntero();
+        return list;
+    }
 }

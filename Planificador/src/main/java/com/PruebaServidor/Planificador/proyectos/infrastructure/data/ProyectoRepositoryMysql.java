@@ -45,6 +45,11 @@ public class ProyectoRepositoryMysql implements ProyectoRepository {
     }
 
     @Override
+    public List<Proyecto> getProyectoEntero() {
+        return null;
+    }
+
+    @Override
     public List<Tarea> getTareasFromID(Integer id) {
 
         List<Tarea> listaTareas = new ArrayList<>();
@@ -86,6 +91,44 @@ public class ProyectoRepositoryMysql implements ProyectoRepository {
             throw new RuntimeException(e);
         }
 
+    }
+
+    @Override
+    public void saveProyecto(String nombre) {
+
+        String consulta = "INSERT INTO `proyectos`(nombre) VALUES ('" + nombre + "')";
+        try {
+            Statement stm = con.createStatement();
+            stm.executeUpdate(consulta);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    @Override
+    public Proyecto getProyectoFromID(Integer id) {
+        Proyecto proyecto = null;
+
+        String consulta = "SELECT * FROM `proyectos` WHERE id =" + id + ";";
+
+        try {
+            Statement stm = con.createStatement();
+            ResultSet rs = stm.executeQuery(consulta);
+
+            while (rs.next()){
+                Integer idProyecto = rs.getInt("id");
+                String nombre= rs.getString("nombre");
+
+                proyecto= new Proyecto(idProyecto,nombre);
+
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return proyecto;
     }
 
 
